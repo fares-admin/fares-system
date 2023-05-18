@@ -10,7 +10,8 @@
     "format": "prettier --write .",
     "check-format": "prettier --check .",
     "check-lint": "eslint . --ext ts --ext tsx --ext js",
-    "check-types": "tsc --pretty --noEmit"
+    "check-types": "tsc --pretty --noEmit",
+    "prepare": "cd .. && husky install internal-user-service/.husky"
   },
   "dependencies": {
     "@fontsource/roboto": "^4.5.8",
