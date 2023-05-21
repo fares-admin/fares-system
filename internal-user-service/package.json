@@ -1,10 +1,9 @@
 {
-  "name": "forum-platform",
+  "name": "internal-user-service",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": " next dev ",
-    "local-deploy": "lt --port 3000 --subdomain erp-os-fe",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

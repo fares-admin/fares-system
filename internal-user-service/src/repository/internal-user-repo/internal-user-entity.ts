@@ -17,4 +17,6 @@ export const InternalUserEntity = {
   active: Boolean,
 }
 
+export type TInternalUserEntity = typeof InternalUserEntity
+
 export const InternalUserSchema = new mongoose.Schema(InternalUserEntity)
