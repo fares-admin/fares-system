@@ -1,6 +1,25 @@
 import mongoose from 'mongoose'
 
-export const InternalUserEntity = {
+export const InitInternalUserEntity = {
+  _id: new mongoose.Types.ObjectId(),
+  name: '',
+  username: '',
+  password: '',
+  email: '',
+  phone: '',
+  created: new Date(),
+  modified: new Date(),
+  token: '',
+  codeLogin: '',
+  codeForgot: '',
+  twoFactor: false,
+  verify: false,
+  active: false,
+}
+
+export type TInternalUserEntity = typeof InitInternalUserEntity
+
+export const InternalUserSchema = new mongoose.Schema({
   _id: mongoose.Types.ObjectId,
   name: String,
   username: String,
@@ -15,8 +34,4 @@ export const InternalUserEntity = {
   twoFactor: Boolean,
   verify: Boolean,
   active: Boolean,
-}
-
-export type TInternalUserEntity = typeof InternalUserEntity
-
-export const InternalUserSchema = new mongoose.Schema(InternalUserEntity)
+})

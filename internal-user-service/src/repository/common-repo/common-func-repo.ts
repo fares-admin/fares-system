@@ -1,7 +1,7 @@
 import logger from '@/src/lib/logger'
+import { PipelineResponse } from '@/src/shared'
 import { PipelineStage } from 'mongoose'
 import { connect } from '../../lib/mongodb'
-import { CommonRepositoryRes } from './common-repo-type'
 
 export async function findFunc<T>(
   schema: any,
@@ -10,7 +10,7 @@ export async function findFunc<T>(
   pageProp: number,
   sizeProp: number
 ): Promise<
-  CommonRepositoryRes<{
+  PipelineResponse<{
     data: T[]
     total: number
     page: number
@@ -50,7 +50,7 @@ export async function findFunc<T>(
       return {
         result: {
           data: thisResult[0].data,
-          total: thisResult[0].metadata[0].total,
+          total: thisResult[0].metadata[0]?.total || 0,
           page,
           size,
         },
@@ -72,7 +72,7 @@ export async function findOneFunc<T>(
   keySchema: string,
   value: any,
   field: string
-): Promise<CommonRepositoryRes<T[]>> {
+): Promise<PipelineResponse<T[]>> {
   const { result, error } = await connect(schema, keySchema)
   if (error) {
     return {
@@ -108,7 +108,7 @@ export async function saveFunc<T>(
   schema: any,
   keySchema: string,
   entities: T[]
-): Promise<CommonRepositoryRes<string>> {
+): Promise<PipelineResponse<string>> {
   const { result, error } = await connect(schema, keySchema)
   if (error) {
     return {
@@ -117,9 +117,9 @@ export async function saveFunc<T>(
   }
   if (result) {
     const { data } = result
+    const ModelMap = data
     try {
-      // eslint-disable-next-line new-cap
-      await data.bulkSave(entities.map((item) => new data(item)))
+      await data.bulkSave(entities.map((item) => new ModelMap(item)))
       return {
         result: 'success',
       }
@@ -139,7 +139,7 @@ export async function deleteFunc(
   schema: any,
   keySchema: string,
   ids: string[]
-): Promise<CommonRepositoryRes<string>> {
+): Promise<PipelineResponse<string>> {
   const { result, error } = await connect(schema, keySchema)
   if (error) {
     return {

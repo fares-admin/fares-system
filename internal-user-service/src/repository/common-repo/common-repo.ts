@@ -1,5 +1,5 @@
+import { PipelineResponse } from '@/src/shared'
 import { deleteFunc, findFunc, findOneFunc, saveFunc } from './common-func-repo'
-import { CommonRepositoryRes } from './common-repo-type'
 
 export class CommonRepository<T> {
   schema: any
@@ -15,7 +15,7 @@ export class CommonRepository<T> {
     page: number,
     size: number
   ): Promise<
-    CommonRepositoryRes<{
+    PipelineResponse<{
       data: T[]
       page: number
       size: number
@@ -26,17 +26,17 @@ export class CommonRepository<T> {
     return result
   }
 
-  async findOne(field: string, value: any): Promise<CommonRepositoryRes<T[]>> {
+  async findOne(field: string, value: any): Promise<PipelineResponse<T[]>> {
     const result = await findOneFunc<T>(this.schema, this.collection, value, field)
     return result
   }
 
-  async save(entities: T[]): Promise<CommonRepositoryRes<string>> {
+  async save(entities: T[]): Promise<PipelineResponse<string>> {
     const result = await saveFunc(this.schema, this.collection, entities)
     return result
   }
 
-  async delete(ids: string[]): Promise<CommonRepositoryRes<string>> {
+  async delete(ids: string[]): Promise<PipelineResponse<string>> {
     const result = await deleteFunc(this.schema, this.collection, ids)
     return result
   }
