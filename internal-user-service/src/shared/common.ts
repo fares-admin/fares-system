@@ -4,3 +4,8 @@ export interface ResponseFuncs {
   PUT?: Function
   DELETE?: Function
 }
+
+export interface PipelineResponse<T> {
+  result?: T
+  error?: string
+}
