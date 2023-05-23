@@ -34,6 +34,7 @@ module.exports = {
     ],
     'import/no-extraneous-dependencies': ['off', { devDependencies: true }],
     '@typescript-eslint/return-await': ['off'],
+    'class-methods-use-this': ['off'],
     // suppress errors for missing 'import React' in files
     'react/react-in-jsx-scope': ['off'],
     // gives warning if spread props getting passed to component ex. (...props)
