@@ -1,4 +1,4 @@
-import { decodeBase64 } from '../lib/base64'
+import { decodeBase64 } from '../base64'
 import { TValidateFunction } from './type-validation'
 
 export const IS_PASSWORD: TValidateFunction = <T extends object>(
