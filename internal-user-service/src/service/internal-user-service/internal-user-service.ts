@@ -6,6 +6,7 @@ import {
 } from '@/src/repository/internal-user-repo/internal-user-entity'
 import { InternalUserRepository } from '@/src/repository/internal-user-repo/internal-user-repository'
 import { CommonListResult, CommonResponse } from '@/src/shared'
+import { NextApiRequest } from 'next'
 import { CommonService } from '../common-service/common-service'
 import {
   InitInternalUserRes,
@@ -20,8 +21,16 @@ export class InternalUserService extends CommonService<InternalUserRepository> {
     super(new InternalUserRepository())
   }
 
-  async getListUsers(): Promise<CommonResponse<CommonListResult<InternalUserRes> | string>> {
-    const result = await this.repository.find(1, 10)
+  async getListUsers(
+    req: NextApiRequest
+  ): Promise<CommonResponse<CommonListResult<InternalUserRes> | string>> {
+    const { page, size } = this.getPageAndSize(req)
+    const result = await this.repository.find(
+      page,
+      size,
+      this.generatePipelineAggregate(req.query, InitInternalUserEntity)
+    )
+
     return this.responseList(result, InitInternalUserRes)
   }
 
