@@ -40,7 +40,7 @@ export class InternalUserService extends CommonService<InternalUserRepository> {
       return this.genRes<InternalUserReqError>(validateRes.error, 400, 'invalidRequest', false)
     }
     const entity = convertValue<TInternalUserEntity>(req, InitInternalUserEntity)
-    this.repository.save([entity])
-    return this.genRes<string>('success', 200, 'success', true)
+    const result = await this.repository.save([entity])
+    return this.responseVoid(result)
   }
 }

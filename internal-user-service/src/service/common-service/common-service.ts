@@ -41,6 +41,14 @@ export class CommonService<T> {
     return this.genRes<string>('', 500, error || '', false)
   }
 
+  responseVoid<E>(val: PipelineResponse<E>): Promise<CommonResponse<E | string>> {
+    const { error, result } = val
+    if (result) {
+      return this.genRes(result, 200, 'ok', true)
+    }
+    return this.genRes<string>('', 500, error || '', false)
+  }
+
   generatePipelineAggregate<T extends object>(params: object, entity: T): PipelineStage[] {
     const paramKeys = Object.keys(params)
     const entityKeys = Object.keys(entity)
