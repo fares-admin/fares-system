@@ -1,4 +1,5 @@
-import { CommonResponse, PipelineResponse } from '@/src/shared'
+import { convertValue } from '@/src/lib/object-mapper'
+import { CommonListResult, CommonResponse, PipelineResponse } from '@/src/shared'
 
 export class CommonService<T> {
   repository: T
@@ -21,10 +22,18 @@ export class CommonService<T> {
     })
   }
 
-  checkPipeline<E>(val: PipelineResponse<E>): Promise<CommonResponse<E | string>> {
+  responseList<E, F>(
+    val: PipelineResponse<CommonListResult<E>>,
+    initRes: F
+  ): Promise<CommonResponse<CommonListResult<F> | string>> {
     const { error, result } = val
     if (result) {
-      return this.genRes<E>(result, 200, 'ok', true)
+      return this.genRes<CommonListResult<F>>(
+        { ...result, data: result.data.map((item) => convertValue(item, initRes)) },
+        200,
+        'ok',
+        true
+      )
     }
     return this.genRes<string>('', 500, error || '', false)
   }
