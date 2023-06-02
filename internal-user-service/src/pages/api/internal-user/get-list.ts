@@ -3,6 +3,6 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const service = new InternalUserService()
-  const result = await service.getListUsers()
+  const result = await service.getListUsers(req)
   res.status(200).json(result)
 }

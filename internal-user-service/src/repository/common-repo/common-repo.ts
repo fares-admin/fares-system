@@ -1,4 +1,5 @@
-import { PipelineResponse } from '@/src/shared'
+import { CommonListResult, PipelineResponse } from '@/src/shared'
+import { PipelineStage } from 'mongoose'
 import { deleteFunc, findFunc, findOneFunc, saveFunc } from './common-func-repo'
 
 export class CommonRepository<T> {
@@ -13,16 +14,10 @@ export class CommonRepository<T> {
 
   async find(
     page: number,
-    size: number
-  ): Promise<
-    PipelineResponse<{
-      data: T[]
-      page: number
-      size: number
-      total: number
-    }>
-  > {
-    const result = await findFunc<T>(this.schema, this.collection, [], page, size)
+    size: number,
+    pipeLine: PipelineStage[]
+  ): Promise<PipelineResponse<CommonListResult<T>>> {
+    const result = await findFunc<T>(this.schema, this.collection, pipeLine, page, size)
     return result
   }
 
