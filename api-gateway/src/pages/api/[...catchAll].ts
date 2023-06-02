@@ -33,7 +33,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const response = await fetch(`${url?.host}${req.url}`, {
       headers,
       method: req.method,
-      body: req.body ? JSON.stringify(req.body) : undefined,
+      //   body: req.body ? JSON.stringify(req.body) : undefined,
     })
     const result = await response.json()
     res.status(200).json(result)
