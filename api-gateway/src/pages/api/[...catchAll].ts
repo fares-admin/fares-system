@@ -36,7 +36,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       body: req.body ? JSON.stringify(req.body) : undefined,
     })
     const result = await response.json()
-    logger.info([JSON.stringify(result)])
     res.status(200).json(result)
   } catch (error: any) {
     // handle error
