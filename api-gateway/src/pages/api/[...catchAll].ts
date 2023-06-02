@@ -17,6 +17,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     // config headers
     const headers = {
+      ...req.headers,
       host: req.headers.host,
       connection: req.headers.connection,
       'sec-ch-ua': req.headers['sec-ch-ua'],
