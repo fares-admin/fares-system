@@ -23,22 +23,28 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     logger.info([headers])
     logger.info([`${url?.host}${req.url}`])
     let result = {}
+    // handle method
     switch (req.method) {
       case 'GET': {
-        result = axios.get(`${url?.host}${req.url}`, { headers })
+        result = (await axios.get(`${url?.host}${req.url}`, { ...req })).data
+        break
+      }
+      case 'POST': {
+        result = (await axios.post(`${url?.host}${req.url}`, req.body, { ...req })).data
+        break
+      }
+      case 'PUT': {
+        result = (await axios.put(`${url?.host}${req.url}`, req.body, { ...req })).data
+        break
+      }
+      case 'DELETE': {
+        result = (await axios.delete(`${url?.host}${req.url}`, { ...req })).data
         break
       }
       default: {
         res.status(500).json({ message: 'not support method' })
       }
     }
-    // fetch api
-    // const response = await fetch(`${url?.host}${req.url}`, {
-    //   headers,
-    //   method: req.method,
-    //   //   body: req.body ? JSON.stringify(req.body) : undefined,
-    // })
-    // const result = await response.json()
     res.status(200).json(result)
   } catch (error: any) {
     // handle error
