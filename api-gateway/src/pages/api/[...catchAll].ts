@@ -41,6 +41,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   } catch (error: any) {
     // handle error
     logger.info([error.message, 'Error: ', JSON.stringify(error)])
-    res.status(500).json({ message: error.message, url, error })
+    res.status(500).json({ message: error.message, url, error, path: `${url?.host}${req.url}` })
   }
 }
