@@ -1,4 +1,5 @@
 import logger from '@/src/lib/logger'
+import axios from 'axios'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -18,25 +19,26 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     // config headers
     const headers = {
       ...req.headers,
-      host: req.headers.host,
-      connection: req.headers.connection,
-      'sec-ch-ua': req.headers['sec-ch-ua'],
-      'content-type': req.headers['content-type'],
-      'user-agent': req.headers['user-agent'],
-      'sec-ch-ua-platform': req.headers['sec-ch-ua-platform'],
-      'sec-ch-ua-mobile': req.headers['sec-ch-ua-mobile'],
-      origin: req.headers.origin,
     } as any
     logger.info([headers])
     logger.info([`${url?.host}${req.url}`])
-
+    let result = {}
+    switch (req.method) {
+      case 'GET': {
+        result = axios.get(`${url?.host}${req.url}`, { headers })
+        break
+      }
+      default: {
+        res.status(500).json({ message: 'not support method' })
+      }
+    }
     // fetch api
-    const response = await fetch(`${url?.host}${req.url}`, {
-      headers,
-      method: req.method,
-      //   body: req.body ? JSON.stringify(req.body) : undefined,
-    })
-    const result = await response.json()
+    // const response = await fetch(`${url?.host}${req.url}`, {
+    //   headers,
+    //   method: req.method,
+    //   //   body: req.body ? JSON.stringify(req.body) : undefined,
+    // })
+    // const result = await response.json()
     res.status(200).json(result)
   } catch (error: any) {
     // handle error
