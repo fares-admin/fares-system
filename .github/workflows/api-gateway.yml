@@ -6,11 +6,17 @@ env:
 
 on:
   pull_request:
-    branches: [develop, main]
-    paths: ["api-gateway/**"]
+    branches:
+      - develop
+      - main
+    paths:
+      - "api-gateway/**"
   push:
-    branches: [develop, main]
-    paths: ["api-gateway/**"]
+    branches:
+      - develop
+      - main
+    paths:
+      - "api-gateway/**"
 
 jobs:
   build-develop:
