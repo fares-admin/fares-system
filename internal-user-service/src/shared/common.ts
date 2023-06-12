@@ -1,10 +1,3 @@
-export interface ResponseFuncs {
-  GET?: Function
-  POST?: Function
-  PUT?: Function
-  DELETE?: Function
-}
-
 export interface PipelineResponse<T> {
   result?: T
   error?: string
@@ -16,7 +9,6 @@ export interface CommonResponse<T> {
   result: T
   status: number
 }
-
 export interface CommonListResult<T> {
   data: T[]
   page: number
