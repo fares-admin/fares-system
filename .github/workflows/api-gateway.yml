@@ -24,11 +24,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        working-directory: ./api-gateway
       - name: Set up Node 16.x
+        working-directory: ./api-gateway
         uses: actions/setup-node@v3
         with:
           node-version: "16.x"
       - name: install packages
+        working-directory: ./api-gateway
         run: npm install
       - name: build next
+        working-directory: ./api-gateway
         run: npm run build
