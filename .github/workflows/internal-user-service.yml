@@ -1,4 +1,4 @@
-name: api-gateway CI/CD work-flow
+name: internal-user-service CI/CD work-flow
 
 on:
   pull_request:
@@ -6,13 +6,13 @@ on:
       - develop
       - main
     paths:
-      - "api-gateway/**"
+      - "internal-user-service/**"
   push:
     branches:
       - develop
       - main
     paths:
-      - "api-gateway/**"
+      - "internal-user-service/**"
 
 jobs:
   build-develop:
@@ -25,8 +25,8 @@ jobs:
         with:
           node-version: "16.x"
       - name: install packages
-        working-directory: ./api-gateway
+        working-directory: ./internal-user-service
         run: npm install
       - name: build next
-        working-directory: ./api-gateway
+        working-directory: ./internal-user-service
         run: npm run build
