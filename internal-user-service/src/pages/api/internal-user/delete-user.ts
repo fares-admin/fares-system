@@ -4,6 +4,6 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const service = new InternalUserService()
-  const result = await wrapperEndpoint(req, 'POST', service.addNewUser(req.body))
+  const result = await wrapperEndpoint(req, 'DELETE', service.deleteUser(req.query.ids as string))
   res.status(200).json(result)
 }

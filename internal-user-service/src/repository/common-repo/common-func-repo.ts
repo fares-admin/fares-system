@@ -1,6 +1,6 @@
 import logger from '@/src/lib/logger'
 import { PipelineResponse } from '@/src/shared'
-import { PipelineStage } from 'mongoose'
+import { AnyKeys, PipelineStage } from 'mongoose'
 import { connect } from '../../lib/mongodb'
 
 export async function findFunc<T>(
@@ -72,7 +72,7 @@ export async function findOneFunc<T>(
   keySchema: string,
   value: any,
   field: string
-): Promise<PipelineResponse<T[]>> {
+): Promise<PipelineResponse<T>> {
   const { result, error } = await connect(schema, keySchema)
   if (error) {
     return {
@@ -90,7 +90,7 @@ export async function findOneFunc<T>(
         },
       ])) as T[]
       return {
-        result: thisResult,
+        result: thisResult[0],
       }
     } catch (error: any) {
       logger.error([error.message])
@@ -104,7 +104,7 @@ export async function findOneFunc<T>(
   }
 }
 
-export async function saveFunc<T>(
+export async function insertManyFunc<T>(
   schema: any,
   keySchema: string,
   entities: T[]
@@ -117,9 +117,44 @@ export async function saveFunc<T>(
   }
   if (result) {
     const { data } = result
-    const ModelMap = data
     try {
-      await data.bulkSave(entities.map((item) => new ModelMap(item)))
+      await data.insertMany(entities)
+      return {
+        result: 'success',
+      }
+    } catch (error: any) {
+      logger.error([error.message])
+      return {
+        error: error.message,
+      }
+    }
+  }
+  return {
+    error: 'no result',
+  }
+}
+
+export async function updateManyFunc<T>(
+  schema: any,
+  keySchema: string,
+  entities: T[]
+): Promise<PipelineResponse<string>> {
+  const { result, error } = await connect(schema, keySchema)
+  if (error) {
+    return {
+      error,
+    }
+  }
+  if (result) {
+    const { data } = result
+    try {
+      await Promise.all(
+        entities.map(async (item) => {
+          await data.findByIdAndUpdate(item['_id' as keyof typeof item], {
+            $set: { ...item, _id: undefined } as AnyKeys<any>,
+          })
+        })
+      )
       return {
         result: 'success',
       }

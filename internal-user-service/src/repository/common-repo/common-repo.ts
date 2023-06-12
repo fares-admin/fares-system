@@ -1,6 +1,12 @@
 import { CommonListResult, PipelineResponse } from '@/src/shared'
 import { PipelineStage } from 'mongoose'
-import { deleteFunc, findFunc, findOneFunc, saveFunc } from './common-func-repo'
+import {
+  deleteFunc,
+  findFunc,
+  findOneFunc,
+  insertManyFunc,
+  updateManyFunc,
+} from './common-func-repo'
 
 export class CommonRepository<T> {
   schema: any
@@ -21,13 +27,18 @@ export class CommonRepository<T> {
     return result
   }
 
-  async findOne(field: string, value: any): Promise<PipelineResponse<T[]>> {
+  async findOne(field: string, value: any): Promise<PipelineResponse<T>> {
     const result = await findOneFunc<T>(this.schema, this.collection, value, field)
     return result
   }
 
-  async save(entities: T[]): Promise<PipelineResponse<string>> {
-    const result = await saveFunc(this.schema, this.collection, entities)
+  async insert(entities: T[]): Promise<PipelineResponse<string>> {
+    const result = await insertManyFunc(this.schema, this.collection, entities)
+    return result
+  }
+
+  async update(entities: T[]): Promise<PipelineResponse<string>> {
+    const result = await updateManyFunc(this.schema, this.collection, entities)
     return result
   }
 
