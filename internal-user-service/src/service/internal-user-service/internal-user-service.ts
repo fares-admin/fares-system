@@ -1,5 +1,3 @@
-import { convertValue } from '@/src/lib/object-mapper'
-import { validate } from '@/src/lib/validation'
 import {
   InitInternalUserEntity,
   TInternalUserEntity,
@@ -8,6 +6,8 @@ import { InternalUserRepository } from '@/src/repository/internal-user-repo/inte
 import { CommonListResult, CommonResponse } from '@/src/shared'
 import mongoose from 'mongoose'
 import { NextApiRequest } from 'next'
+import { convertValue } from 'object-mapper-fares-system'
+import { validate } from 'validation-tool-fares-system'
 import { CommonService } from '../common-service/common-service'
 import {
   InitInternalUserRes,

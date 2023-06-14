@@ -1,8 +1,8 @@
 import logger from '@/src/lib/logger'
-import { convertValue } from '@/src/lib/object-mapper'
 import { CommonListResult, CommonResponse, PipelineResponse } from '@/src/shared'
 import mongoose, { PipelineStage } from 'mongoose'
 import { NextApiRequest } from 'next'
+import { convertValue } from 'object-mapper-fares-system'
 
 export class CommonService<T> {
   repository: T

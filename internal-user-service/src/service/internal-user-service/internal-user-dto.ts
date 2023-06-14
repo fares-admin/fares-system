@@ -1,4 +1,10 @@
-import { IS_EMAIL, IS_PHONE, IS_REQUIRED, IS_USERNAME, ObjectValidator } from '@/src/lib/validation'
+import {
+  IS_EMAIL,
+  IS_PHONE,
+  IS_REQUIRED,
+  IS_USERNAME,
+  ObjectValidator,
+} from 'validation-tool-fares-system'
 
 export interface InternalUserReq {
   name: string
