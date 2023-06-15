@@ -631,6 +631,14 @@ combined-stream@^1.0.8:
   dependencies:
     delayed-stream "~1.0.0"
 
+common-abstract-fares-system@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/common-abstract-fares-system/-/common-abstract-fares-system-1.0.1.tgz#a2527d2def9b98deb576b4a717636a356d26c905"
+  integrity sha512-0uNZniCmLmENToXblQzRxL+Vy2EU5pY7w+JgJly89YGgit1OohBVDUyaidLIc0hgqGUd/Y4o6Ssk2dUIlwqL6A==
+  dependencies:
+    mongoose "^7.1.1"
+    object-mapper-fares-system "^1.0.4"
+
 concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
