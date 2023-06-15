@@ -4,11 +4,11 @@ import {
 } from '@/src/repository/internal-user-repo/internal-user-entity'
 import { InternalUserRepository } from '@/src/repository/internal-user-repo/internal-user-repository'
 import { CommonListResult, CommonResponse } from '@/src/shared'
+import { CommonService } from 'common-abstract-fares-system'
 import mongoose from 'mongoose'
 import { NextApiRequest } from 'next'
 import { convertValue } from 'object-mapper-fares-system'
 import { validate } from 'validation-tool-fares-system'
-import { CommonService } from '../common-service/common-service'
 import {
   InitInternalUserRes,
   InternalUserReq,
@@ -25,7 +25,7 @@ export class InternalUserService extends CommonService<InternalUserRepository> {
   public async getListUsers(
     req: NextApiRequest
   ): Promise<CommonResponse<CommonListResult<InternalUserRes> | string>> {
-    const { page, size } = this.getPageAndSize(req)
+    const { page, size } = this.getPageAndSize(req as any)
     const result = await this.repository.find(
       page,
       size,
