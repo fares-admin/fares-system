@@ -26,17 +26,13 @@ export const InitInternalUserRes = {
   _id: '',
   name: '',
   username: '',
-  password: '',
   email: '',
   phone: '',
   created: new Date(),
   modified: new Date(),
-  token: '',
-  codeLogin: '',
-  codeForgot: '',
-  twoFactor: 0,
-  verify: 0,
-  active: 0,
+  twoFactor: true,
+  verify: true,
+  active: true,
 }
 
 export type InternalUserRes = typeof InitInternalUserRes
