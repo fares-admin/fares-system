@@ -1,23 +1,25 @@
 FROM node:lts as dependencies
-WORKDIR /forum-platform
+WORKDIR /internal-user-service
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
 FROM node:lts as builder
-WORKDIR /forum-platform
+WORKDIR /internal-user-service
 COPY . .
-COPY --from=dependencies /forum-platform/node_modules ./node_modules
+COPY --from=dependencies /internal-user-service/node_modules ./node_modules
 RUN yarn build
 
 FROM node:lts as runner
-WORKDIR /forum-platform
+WORKDIR /internal-user-service
 ENV NODE_ENV production
 # If you are using a custom next.config.js file, uncomment this line.
-COPY --from=builder /forum-platform/next.config.js ./
-COPY --from=builder /forum-platform/public ./public
-COPY --from=builder /forum-platform/.next ./.next
-COPY --from=builder /forum-platform/node_modules ./node_modules
-COPY --from=builder /forum-platform/package.json ./package.json
+COPY --from=builder /internal-user-service/next.config.js ./
+COPY --from=builder /internal-user-service/public ./public
+COPY --from=builder /internal-user-service/.next ./.next
+COPY --from=builder /internal-user-service/node_modules ./node_modules
+COPY --from=builder /internal-user-service/package.json ./package.json
+
+ENV DATABASE_URL=${DATABASE_URL}
 
 EXPOSE 3000
 CMD ["yarn", "start"]
