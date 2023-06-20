@@ -4,6 +4,7 @@ import {
 } from '@/src/repository/internal-user-repo/internal-user-entity'
 import { InternalUserRepository } from '@/src/repository/internal-user-repo/internal-user-repository'
 import { CommonListResult, CommonResponse, CommonService } from 'common-abstract-fares-system'
+import { hashPassword } from 'common-lib-fares-system'
 import mongoose from 'mongoose'
 import { NextApiRequest } from 'next'
 import { convertValue } from 'object-mapper-fares-system'
@@ -90,7 +91,8 @@ export class InternalUserService extends CommonService<InternalUserRepository> {
     const isValidUser = await this.validateUser(req, 'a')
     if (isValidUser) return isValidUser
     const entity = convertValue<TInternalUserEntity>(req, InitInternalUserEntity)
-    const result = await this.repository.insert([entity])
+    const password = await hashPassword(process.env.DEFAULT_PASSWORD || '')
+    const result = await this.repository.insert([{ ...entity, password, codes: [] }])
     return this.responseVoid(result)
   }
 
