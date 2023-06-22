@@ -16,6 +16,12 @@ import {
   InternalUserLoginRes,
 } from '../auth-internal-user-dto'
 
+/*
+    @ericchen:
+
+    put your explanation here
+*/
+
 const smtpOption = {
   host: process.env.SMTP_HOST || 'smtp.gmail.com',
   port: parseInt(process.env.SMTP_PORT || '465', 10),
@@ -25,12 +31,6 @@ const smtpOption = {
     pass: process.env.SMTP_PASSWORD || 'password',
   },
 }
-
-/*
-    @ericchen:
-
-    put your explanation here
-*/
 
 export const loginFunction = async (
   loginReq: InternalUserLoginReq,

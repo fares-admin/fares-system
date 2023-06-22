@@ -2,6 +2,12 @@ import { InternalUserService } from '@/src/service/internal-user-service/interna
 import { NextApiRequest, NextApiResponse } from 'next'
 import { wrapperEndpoint } from 'wrapper-endpoints-fares-system'
 
+/*
+    @ericchen:
+
+    put your explanation here
+*/
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const service = new InternalUserService()
   const result = await wrapperEndpoint(
