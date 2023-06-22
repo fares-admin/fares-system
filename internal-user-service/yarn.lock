@@ -643,10 +643,10 @@ combined-stream@^1.0.8:
   dependencies:
     delayed-stream "~1.0.0"
 
-common-abstract-fares-system@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/common-abstract-fares-system/-/common-abstract-fares-system-1.0.1.tgz#a2527d2def9b98deb576b4a717636a356d26c905"
-  integrity sha512-0uNZniCmLmENToXblQzRxL+Vy2EU5pY7w+JgJly89YGgit1OohBVDUyaidLIc0hgqGUd/Y4o6Ssk2dUIlwqL6A==
+common-abstract-fares-system@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/common-abstract-fares-system/-/common-abstract-fares-system-1.0.2.tgz#eeca304a68e0992a4ae96c4db8fa2c2bb401a71e"
+  integrity sha512-ood7I/7XLXURCQaVKawnwLm7+34ilLHn1hp/6BlXu1jYXthsnjWc39TdmxByoG8GBallYAtDVyI7vknJ8ZFH6w==
   dependencies:
     mongoose "^7.1.1"
     object-mapper-fares-system "^1.0.4"

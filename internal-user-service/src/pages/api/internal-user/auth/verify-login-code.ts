@@ -2,8 +2,18 @@ import { AuthInternalUserService } from '@/src/service/auth-internal-user-servic
 import { NextApiRequest, NextApiResponse } from 'next'
 import { wrapperEndpoint } from 'wrapper-endpoints-fares-system'
 
+/*
+    @ericchen:
+
+    put your explanation here
+*/
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const service = new AuthInternalUserService()
-  const result = await wrapperEndpoint(req, 'POST', service.login(req.body))
+  const result = await wrapperEndpoint(
+    req,
+    'GET',
+    service.verifyLoginCode((req.query.username as string) || '', (req.query.code as string) || '')
+  )
   res.status(200).json(result)
 }
