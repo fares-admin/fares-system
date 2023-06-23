@@ -1,3 +1,3 @@
-gate way doc
-
-test
+| Env val       | Service               |
+| ------------- | --------------------- |
+| INTERNAL_USER | internal user service |
