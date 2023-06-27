@@ -1,0 +1,11 @@
+name: general CI/CD work-flow
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+  push:
+    branches:
+      - develop
+      - main
