@@ -1,0 +1,32 @@
+name: room-service CI/CD work-flow
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+    paths:
+      - "room-service/**"
+  push:
+    branches:
+      - develop
+      - main
+    paths:
+      - "room-service/**"
+
+jobs:
+  build-develop:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+      - name: install packages
+        working-directory: ./room-service
+        run: npm install
+      - name: build next
+        working-directory: ./room-service
+        run: npm run build
