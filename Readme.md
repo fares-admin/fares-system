@@ -6,3 +6,9 @@ DB diagram: https://www.canva.com/design/DAFmz1PrGYs/L4DHevyUmvKpW_--hJv0hQ/edit
 | Room    | https://www.canva.com/design/DAFm8PUCKO4/RWsPmPUOdEWUihEK0byeCQ/edit?utm_content=DAFm8PUCKO4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton |
 | Review  | https://www.canva.com/design/DAFm8O6wS-w/fayNWz6QuRRJHN4e3uE0nA/edit?utm_content=DAFm8O6wS-w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton |
 | Payment | https://www.canva.com/design/DAFnCac2iK0/gvY2gIFfafJDd9skmYNf_A/edit?utm_content=DAFnCac2iK0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton |
+
+| Env val                | Purpose                        |
+| ---------------------- | ------------------------------ |
+| DATABASE_URL           | url link to db                 |
+| SERVICE_JWT_SECRET_KEY | secret for service token       |
+| USER_JWT_SECRET_KEY    | secret for internal user token |
