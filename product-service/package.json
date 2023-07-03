@@ -1,9 +1,9 @@
 {
-  "name": "internal-user-service",
+  "name": "product-service",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": " next dev ",
+    "dev": " next dev -p 3002",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -11,7 +11,7 @@
     "check-format": "prettier --check .",
     "check-lint": "eslint . --ext ts --ext tsx --ext js",
     "check-types": "tsc --pretty --noEmit",
-    "prepare": "cd .. && husky install internal-user-service/.husky"
+    "prepare": "cd .. && husky install product-service/.husky"
   },
   "dependencies": {
     "@fontsource/roboto": "^4.5.8",

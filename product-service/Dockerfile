@@ -21,5 +21,5 @@ COPY --from=builder /internal-user-service/package.json ./package.json
 
 ENV DATABASE_URL=${DATABASE_URL}
 
-EXPOSE 3000
+EXPOSE 3002
 CMD ["yarn", "start"]
