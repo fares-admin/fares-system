@@ -1,3 +1,4 @@
+import { TInternalUserEntity } from '@/src/repository/internal-user-repo/internal-user-entity'
 import { InternalUserRepository } from '@/src/repository/internal-user-repo/internal-user-repository'
 import { CommonResponse, CommonService } from 'common-abstract-fares-system'
 import {
@@ -5,21 +6,15 @@ import {
   InternalUserLoginReq,
   InternalUserLoginRes,
 } from './auth-internal-user-dto'
-import { loginFunction, verifyLoginCodeFunction } from './auth-service-function'
+import {
+  loginFunction,
+  verifyLoginCodeFunction,
+  verifyTokenFunction,
+} from './auth-service-function'
 
 export class AuthInternalUserService extends CommonService<InternalUserRepository> {
   constructor() {
     super(new InternalUserRepository())
-  }
-
-  smtpOption = {
-    host: process.env.SMTP_HOST || 'smtp.gmail.com',
-    port: parseInt(process.env.SMTP_PORT || '465', 10),
-    secure: true,
-    auth: {
-      user: process.env.SMTP_USER || 'user',
-      pass: process.env.SMTP_PASSWORD || 'password',
-    },
   }
 
   public async login(
@@ -33,5 +28,12 @@ export class AuthInternalUserService extends CommonService<InternalUserRepositor
     code: string
   ): Promise<CommonResponse<InternalUserLoginRes | string>> {
     return verifyLoginCodeFunction(username, code, this.repository)
+  }
+
+  public async verifyInternalUserToken(
+    userToken: string,
+    serviceToken: string
+  ): Promise<CommonResponse<TInternalUserEntity | string>> {
+    return await verifyTokenFunction(userToken, serviceToken, this.repository)
   }
 }
