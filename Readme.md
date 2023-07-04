@@ -12,3 +12,10 @@ DB diagram: https://www.canva.com/design/DAFmz1PrGYs/L4DHevyUmvKpW_--hJv0hQ/edit
 | DATABASE_URL           | url link to db                 |
 | SERVICE_JWT_SECRET_KEY | secret for service token       |
 | USER_JWT_SECRET_KEY    | secret for internal user token |
+
+Simple conventions:
+
+- Name of file: use '-' to separate words. With file service, repo -> put name of service to first. Example: user-service.
+- Name of func: clear purpose on name, use camelCase: Example: verifyToken
+- Name of folder: follow name of file
+- Every code convention has added in eslint configuration.
