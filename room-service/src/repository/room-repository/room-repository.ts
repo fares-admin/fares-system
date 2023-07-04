@@ -1,7 +1,7 @@
 import { CommonRepository } from 'common-abstract-fares-system'
-import { RoomSchema, TRoomEntity } from './room-entity'
+import { RoomSchema, IRoom } from './room-entity'
 
-export class InternalUserRepository extends CommonRepository<TRoomEntity> {
+export class InternalUserRepository extends CommonRepository<IRoom> {
   constructor() {
     super(RoomSchema, 'rooms')
   }

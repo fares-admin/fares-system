@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-export const InitRoomEntity = {
+export const InitRoomEntity: IRoom = {
   _id: new mongoose.Types.ObjectId(),
   productId: new mongoose.Types.ObjectId(),
   title: '',
@@ -12,7 +12,17 @@ export const InitRoomEntity = {
   active: true,
 }
 
-export type TRoomEntity = typeof InitRoomEntity
+export interface IRoom {
+  _id: mongoose.Types.ObjectId
+  productId: mongoose.Types.ObjectId
+  title: string
+  size: number
+  maxPersons: number
+  price: number
+  salePrices: number
+  image: string
+  active: boolean
+}
 
 export const RoomSchema = new mongoose.Schema({
   _id: mongoose.Types.ObjectId,
