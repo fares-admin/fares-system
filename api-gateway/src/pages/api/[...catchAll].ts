@@ -8,6 +8,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       serviceBaseRoute: '/api/internal-user',
       host: process.env.INTERNAL_USER || '',
     },
+    {
+      serviceBaseRoute: '/api/products',
+      host: process.env.PRODUCT || '',
+    },
   ]
   // get base path from config
   const url = gates.find((item) => req.url?.includes(item.serviceBaseRoute))
