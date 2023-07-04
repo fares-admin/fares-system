@@ -5,6 +5,7 @@ import {
 import { InternalUserRepository } from '@/src/repository/internal-user-repo/internal-user-repository'
 import { CommonResponse } from 'common-abstract-fares-system'
 import { validateServiceToken, validateUserToken } from 'common-lib-fares-system'
+import mongoose from 'mongoose'
 import { convertValue } from 'object-mapper-fares-system'
 /*
     @ericchen:
@@ -17,7 +18,7 @@ export const verifyTokenFunction = async (
   repository: InternalUserRepository
 ): Promise<CommonResponse<TInternalUserEntity | string>> => {
   try {
-    const { serviceName } = validateServiceToken(serviceToken)
+    const { serviceName } = validateServiceToken(serviceToken.split(' ')[1])
     if (!serviceName) {
       return {
         status: 500,
@@ -26,8 +27,8 @@ export const verifyTokenFunction = async (
         result: '',
       }
     }
-    const serviceAccess = [process.env.ACCESS_SCOPE]
-    if (!serviceAccess.includes(serviceName)) {
+    const serviceAccess = process.env.ACCESS_SCOPE?.split(',')
+    if (!serviceAccess?.includes(serviceName)) {
       return {
         status: 500,
         message: 'no access',
@@ -44,7 +45,7 @@ export const verifyTokenFunction = async (
     }
   }
   try {
-    const decoded = validateUserToken(userToken)
+    const decoded = validateUserToken(userToken.split(' ')[1])
     if (!decoded || !decoded.userId) {
       return {
         status: 401,
@@ -53,7 +54,7 @@ export const verifyTokenFunction = async (
         result: '',
       }
     }
-    const findUser = await repository.findOne('_id', decoded.userId)
+    const findUser = await repository.findOne('_id', new mongoose.Types.ObjectId(decoded.userId))
     if (findUser.error) {
       return {
         status: 401,
@@ -78,7 +79,12 @@ export const verifyTokenFunction = async (
         result: '',
       }
     }
-    return convertValue(findUser.result, InitInternalUserEntity)
+    return {
+      status: 200,
+      success: true,
+      message: 'valid',
+      result: convertValue(findUser.result, InitInternalUserEntity),
+    }
   } catch (err) {
     return {
       status: 401,

@@ -5,53 +5,65 @@ export enum TypeDes {
   PARAGRAPH = 'paragraph',
 }
 
-export const ShipSpec = {
-  launch: '',
-  cabin: 0,
-  shell: '',
-  trip: '',
-  admin: '',
-}
-
-export const Features = {
-  icon: '',
-  text: '',
-}
-
-export const ImageContent = {
-  type: TypeDes.IMAGE,
-  content: '',
-}
-export const ParagraphContent = {
-  type: TypeDes.PARAGRAPH,
-  content: '',
-}
-
 export enum TypeProduct {
   SHIP = 'ship',
 }
 
-export const InitProductEntity = {
+export interface IShipSpec {
+  launch: string
+  cabin: number
+  shell: string
+  trip: string
+  admin: string
+}
+
+export interface IFeature {
+  icon: string
+  text: string
+}
+
+export interface ILongDescription {
+  type: TypeDes
+  content: string
+}
+
+export interface TProductEntity {
+  _id: mongoose.Types.ObjectId
+  defaultPrice: mongoose.Types.ObjectId
+  images: string[]
+  title: string
+  address: string
+  longitude: string
+  latitude: string
+  spec: {
+    ship?: IShipSpec
+  }
+  shortDescription: string[]
+  features: IFeature[]
+  longDescription: ILongDescription[]
+  numReviews: number
+  scoreReview: number
+  typeProduct: TypeProduct
+  active: boolean
+}
+
+export const InitProductEntity: TProductEntity = {
   _id: new mongoose.Types.ObjectId(),
   defaultPrice: new mongoose.Types.ObjectId(),
-  images: [''],
+  images: [],
   title: '',
   address: '',
   longitude: '',
   latitude: '',
-  spec: {
-    ship: ShipSpec,
-  },
-  shortDescription: [''],
-  features: [Features],
-  longDescription: [ImageContent, ParagraphContent],
+  spec: {},
+  shortDescription: [],
+  features: [],
+  longDescription: [],
   numReviews: 0,
   scoreReview: 0,
   typeProduct: TypeProduct.SHIP,
   active: true,
 }
-
-export type TProductEntity = typeof InitProductEntity
 
 export const ProductSchema = new mongoose.Schema({
   _id: mongoose.Types.ObjectId,

@@ -14,8 +14,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     req,
     'GET',
     service.verifyInternalUserToken(
-      req.headers.UserToken?.toString() || '',
-      req.headers.ServiceToken?.toString() || ''
+      req.query.UserToken?.toString() || '',
+      req.query.ServiceToken?.toString() || ''
     )
   )
   res.status(200).json(result)
