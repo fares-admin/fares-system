@@ -5,7 +5,29 @@ export enum TypeCode {
   LOGIN = 'login',
 }
 
-export const InitInternalUserEntity = {
+export interface ICode {
+  code: string
+  expired: Date
+  type: TypeCode
+}
+
+export interface TInternalUserEntity {
+  _id: mongoose.Types.ObjectId
+  name: string
+  username: string
+  password: string
+  email: string
+  phone: string
+  created: Date
+  modified: Date
+  token: string
+  codes: ICode[]
+  twoFactor: boolean
+  verify: boolean
+  active: boolean
+}
+
+export const InitInternalUserEntity: TInternalUserEntity = {
   _id: new mongoose.Types.ObjectId(),
   name: '',
   username: '',
@@ -15,19 +37,11 @@ export const InitInternalUserEntity = {
   created: new Date(),
   modified: new Date(),
   token: '',
-  codes: [
-    {
-      code: '',
-      expired: new Date(),
-      type: TypeCode.FORGOT,
-    },
-  ],
+  codes: [],
   twoFactor: false,
   verify: false,
   active: false,
 }
-
-export type TInternalUserEntity = typeof InitInternalUserEntity
 
 export const InternalUserSchema = new mongoose.Schema({
   _id: mongoose.Types.ObjectId,
