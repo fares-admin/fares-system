@@ -12,7 +12,9 @@ export const AuthUserValidatorSchema: ObjectValidator<InternalUserLoginReq> = {
 
 export type AuthInternalUserReqError = Record<keyof InternalUserLoginReq, string>
 
-export const InitInternalUserLoginRes = {
+export interface InternalUserLoginRes {
+  token: string
+}
+export const InitInternalUserLoginRes: InternalUserLoginRes = {
   token: '',
 }
-export type InternalUserLoginRes = typeof InitInternalUserLoginRes

@@ -22,7 +22,19 @@ export const UserValidatorSchema: ObjectValidator<InternalUserReq> = {
 
 export type InternalUserReqError = Record<keyof InternalUserReq, string>
 
-export const InitInternalUserRes = {
+export interface InternalUserRes {
+  _id: string
+  name: string
+  username: string
+  email: string
+  phone: string
+  created: Date
+  modified: Date
+  twoFactor: boolean
+  verify: boolean
+  active: boolean
+}
+export const InitInternalUserRes: InternalUserRes = {
   _id: '',
   name: '',
   username: '',
@@ -34,5 +46,3 @@ export const InitInternalUserRes = {
   verify: true,
   active: true,
 }
-
-export type InternalUserRes = typeof InitInternalUserRes

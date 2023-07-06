@@ -1,7 +1,7 @@
 import { CommonRepository } from 'common-abstract-fares-system'
-import { ReviewSchema, TReviewEntity } from './review-entity'
+import { ReviewSchema, IReview } from './review-entity'
 
-export class InternalUserRepository extends CommonRepository<TReviewEntity> {
+export class InternalUserRepository extends CommonRepository<IReview> {
   constructor() {
     super(ReviewSchema, 'reviews')
   }
