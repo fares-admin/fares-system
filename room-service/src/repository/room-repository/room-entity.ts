@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-export const InitRoomEntity: IRoom = {
+export const InitRoomEntity: IRoomEntity = {
   _id: new mongoose.Types.ObjectId(),
   productId: new mongoose.Types.ObjectId(),
   title: '',
@@ -12,7 +12,7 @@ export const InitRoomEntity: IRoom = {
   active: true,
 }
 
-export interface IRoom {
+export interface IRoomEntity {
   _id: mongoose.Types.ObjectId
   productId: mongoose.Types.ObjectId
   title: string
