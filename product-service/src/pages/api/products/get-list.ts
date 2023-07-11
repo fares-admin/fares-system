@@ -11,12 +11,9 @@ import { wrapperEndpoint } from 'wrapper-endpoints-fares-system'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const service = new ProductService()
-  let isAuth = false
   const internalService = new InternalAuthService()
   const authResult = await internalService.authUserToken(req.headers.authorization || '')
-  if (authResult.status === 200) {
-    isAuth = true
-  }
+  const isAuth = authResult.success
   const result = await wrapperEndpoint(req, 'GET', service.getListProducts(req, isAuth))
   res.status(200).json(result)
 }
