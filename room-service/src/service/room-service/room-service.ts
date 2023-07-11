@@ -1,11 +1,12 @@
 import { RoomRepository } from '@/src/repository/room-repository/room-repository'
-import { NextApiRequest } from 'next'
 import { CommonListResult, CommonResponse, CommonService } from 'common-abstract-fares-system'
-import { RoomReq, RoomReqError, RoomRes } from './room-dto'
-import { getListRoomsFunc } from './room-service-function/get-list-room-function'
+import { NextApiRequest } from 'next'
+import { RoomReq, RoomReqError } from './room-req'
+import { RoomRes } from './room-res'
 import { addNewRoomFunction } from './room-service-function/add-room-function'
-import { updateRoomFunction } from './room-service-function/update-room-function'
 import { deleteRoomFunction } from './room-service-function/delete-room-function'
+import { getListRoomsFunc } from './room-service-function/get-list-room-function'
+import { updateRoomFunction } from './room-service-function/update-room-function'
 
 export class RoomService extends CommonService<RoomRepository> {
   constructor() {

@@ -1,17 +1,10 @@
-import {
-  InitProductEntity,
-  TProductEntity,
-} from '@/src/repository/product-repository/product-entity'
+import { ProductEntity } from '@/src/repository/product-repository/product-entity'
 import { ProductRepository } from '@/src/repository/product-repository/product-repository'
 import { CommonListResult, CommonResponse, PipelineResponse } from 'common-abstract-fares-system'
 import mongoose from 'mongoose'
 import { NextApiRequest } from 'next'
-import {
-  InitPrivateProductRes,
-  InitPublicProductRes,
-  PrivateProductRes,
-  PublicProductRes,
-} from '../product-service-dto'
+import { PrivateProductRes } from '../product-private-res'
+import { PublicProductRes } from '../product-public-res'
 
 /*
       @ericchen:
@@ -31,9 +24,9 @@ export const getListProductFunc = async (
     page: number
     size: number
   },
-  generatePipelineAggregate: (params: object, entity: TProductEntity) => mongoose.PipelineStage[],
+  generatePipelineAggregate: (params: object, entity: ProductEntity) => mongoose.PipelineStage[],
   responseList: (
-    result: PipelineResponse<CommonListResult<TProductEntity>>,
+    result: PipelineResponse<CommonListResult<ProductEntity>>,
     res: PublicProductRes | PrivateProductRes
   ) => Promise<CommonResponse<CommonListResult<PublicProductRes | PrivateProductRes> | string>>,
   isAuth: boolean
@@ -42,10 +35,10 @@ export const getListProductFunc = async (
   const result = await repository.find(
     page,
     size,
-    generatePipelineAggregate(req.query, InitProductEntity)
+    generatePipelineAggregate(req.query, new ProductEntity())
   )
   if (isAuth) {
-    return await responseList(result, InitPrivateProductRes)
+    return await responseList(result, new PrivateProductRes())
   }
-  return await responseList(result, InitPublicProductRes)
+  return await responseList(result, new PublicProductRes())
 }

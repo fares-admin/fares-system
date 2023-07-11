@@ -1,7 +1,8 @@
 import { ProductRepository } from '@/src/repository/product-repository/product-repository'
 import { CommonListResult, CommonResponse, CommonService } from 'common-abstract-fares-system'
 import { NextApiRequest } from 'next'
-import { PrivateProductRes, PublicProductRes } from './product-service-dto'
+import { PrivateProductRes } from './product-private-res'
+import { PublicProductRes } from './product-public-res'
 import { getListProductFunc } from './product-service-function'
 
 export class ProductService extends CommonService<ProductRepository> {

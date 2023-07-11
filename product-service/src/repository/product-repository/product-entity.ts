@@ -27,42 +27,38 @@ export interface ILongDescription {
   content: string
 }
 
-export interface TProductEntity {
-  _id: mongoose.Types.ObjectId
-  defaultPrice: mongoose.Types.ObjectId
-  images: string[]
-  title: string
-  address: string
-  longitude: string
-  latitude: string
+export class ProductEntity {
+  _id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId()
+
+  defaultPrice: mongoose.Types.ObjectId = new mongoose.Types.ObjectId()
+
+  images: string[] = []
+
+  title: string = ''
+
+  address: string = ''
+
+  longitude: string = ''
+
+  latitude: string = ''
+
   spec: {
     ship?: IShipSpec
-  }
-  shortDescription: string[]
-  features: IFeature[]
-  longDescription: ILongDescription[]
-  numReviews: number
-  scoreReview: number
-  typeProduct: TypeProduct
-  active: boolean
-}
+  } = {}
 
-export const InitProductEntity: TProductEntity = {
-  _id: new mongoose.Types.ObjectId(),
-  defaultPrice: new mongoose.Types.ObjectId(),
-  images: [],
-  title: '',
-  address: '',
-  longitude: '',
-  latitude: '',
-  spec: {},
-  shortDescription: [],
-  features: [],
-  longDescription: [],
-  numReviews: 0,
-  scoreReview: 0,
-  typeProduct: TypeProduct.SHIP,
-  active: true,
+  shortDescription: string[] = []
+
+  features: IFeature[] = []
+
+  longDescription: ILongDescription[] = []
+
+  numReviews: number = 0
+
+  scoreReview: number = 0
+
+  typeProduct: TypeProduct = TypeProduct.SHIP
+
+  active: boolean = true
 }
 
 export const ProductSchema = new mongoose.Schema({
@@ -74,11 +70,12 @@ export const ProductSchema = new mongoose.Schema({
   longitude: String,
   latitude: String,
   spec: {
-    ship: Object,
+    ship:
+      { launch: String, cabin: Number, shell: String, trip: String, admin: String } || undefined,
   },
   shortDescription: Array<String>,
-  features: Array<Object>,
-  longDescription: Array<Object>,
+  features: Array<IFeature>,
+  longDescription: Array<ILongDescription>,
   numReviews: Number,
   scoreReview: Number,
   TypeProduct: String,

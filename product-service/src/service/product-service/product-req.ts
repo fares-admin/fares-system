@@ -6,51 +6,6 @@ import {
 } from '@/src/repository/product-repository/product-entity'
 import { IS_REQUIRED, ObjectValidator } from 'validation-tool-fares-system'
 
-export interface PublicProductRes {
-  _id: string
-  defaultPrice: string
-  images: string[]
-  title: string
-  address: string
-  longitude: string
-  latitude: string
-  spec: {
-    ship?: IShipSpec
-  }
-  shortDescription: string[]
-  features: IFeature[]
-  longDescription: ILongDescription[]
-  numReviews: number
-  scoreReview: number
-  typeProduct: TypeProduct
-}
-
-export interface PrivateProductRes extends PublicProductRes {
-  active: boolean
-}
-
-export const InitPublicProductRes: PublicProductRes = {
-  _id: '',
-  defaultPrice: '',
-  images: [],
-  title: '',
-  address: '',
-  longitude: '',
-  latitude: '',
-  spec: {},
-  shortDescription: [],
-  features: [],
-  longDescription: [],
-  numReviews: 0,
-  scoreReview: 0,
-  typeProduct: TypeProduct.SHIP,
-}
-
-export const InitPrivateProductRes: PrivateProductRes = {
-  ...InitPublicProductRes,
-  active: true,
-}
-
 export interface ProductRequest {
   defaultPrice: string
   images: string[]

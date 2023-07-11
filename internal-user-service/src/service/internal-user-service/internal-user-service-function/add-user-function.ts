@@ -1,13 +1,10 @@
-import {
-  InitInternalUserEntity,
-  TInternalUserEntity,
-} from '@/src/repository/internal-user-repo/internal-user-entity'
+import { InternalUser } from '@/src/repository/internal-user-repo/internal-user-entity'
 import { InternalUserRepository } from '@/src/repository/internal-user-repo/internal-user-repository'
 import { CommonResponse } from 'common-abstract-fares-system'
 import { hashPassword } from 'common-lib-fares-system'
 import { convertValue } from 'object-mapper-fares-system'
 import { validate } from 'validation-tool-fares-system'
-import { InternalUserReq, InternalUserReqError, UserValidatorSchema } from '../internal-user-dto'
+import { InternalUserReq, InternalUserReqError, UserValidatorSchema } from '../internal-user-req'
 
 /*
     @ericchen:
@@ -60,7 +57,7 @@ export const addNewUserFunction = async (
       result: { ...res.result, username: 'username exited' },
     }
   }
-  const entity = convertValue<TInternalUserEntity>(req, InitInternalUserEntity)
+  const entity = convertValue<InternalUser>(req, new InternalUser())
   const password = await hashPassword(process.env.DEFAULT_PASSWORD || '')
   const { error } = await repository.insert([{ ...entity, password, codes: [] }])
   if (error) {

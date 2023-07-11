@@ -1,7 +1,8 @@
 import { InternalUserRepository } from '@/src/repository/internal-user-repo/internal-user-repository'
 import { CommonListResult, CommonResponse, CommonService } from 'common-abstract-fares-system'
 import { NextApiRequest } from 'next'
-import { InternalUserReq, InternalUserReqError, InternalUserRes } from './internal-user-dto'
+import { InternalUserReq, InternalUserReqError } from './internal-user-req'
+import { InternalUserRes } from './internal-user-res'
 import {
   addNewUserFunction,
   deleteUserFunction,
