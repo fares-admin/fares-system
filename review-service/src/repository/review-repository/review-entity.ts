@@ -5,24 +5,22 @@ export enum ReviewStatus {
   REVIEWED = 'reviewed',
 }
 
-export const InitReviewEntity: IReview = {
-  _id: new mongoose.Types.ObjectId(),
-  targetId: [new mongoose.Types.ObjectId()],
-  email: '',
-  name: '',
-  score: 0,
-  reviewer: new mongoose.Types.ObjectId(),
-  status: ReviewStatus.OFFLINE,
-}
+export class Review {
+  _id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId()
 
-export type IReview = {
-  _id: mongoose.Types.ObjectId
-  targetId: mongoose.Types.ObjectId[]
-  email: string
-  name: string
-  score: number
-  reviewer: any
-  status: ReviewStatus
+  productId: mongoose.Types.ObjectId[] = []
+
+  variantId: mongoose.Types.ObjectId = new mongoose.Types.ObjectId()
+
+  email: string = ''
+
+  name: string = ''
+
+  score: number = 0
+
+  reviewer: mongoose.Types.ObjectId = new mongoose.Types.ObjectId()
+
+  status: ReviewStatus = ReviewStatus.OFFLINE
 }
 
 export const ReviewSchema = new mongoose.Schema({
