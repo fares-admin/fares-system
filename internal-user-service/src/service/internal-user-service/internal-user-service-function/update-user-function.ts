@@ -2,7 +2,7 @@ import { InternalUserRepository } from '@/src/repository/internal-user-repo/inte
 import { CommonResponse } from 'common-abstract-fares-system'
 import mongoose from 'mongoose'
 import { validate } from 'validation-tool-fares-system'
-import { InternalUserReq, InternalUserReqError, UserValidatorSchema } from '../internal-user-dto'
+import { InternalUserReq, InternalUserReqError, UserValidatorSchema } from '../internal-user-req'
 
 /*
     @ericchen:

@@ -1,12 +1,9 @@
-import {
-  InitInternalUserEntity,
-  TInternalUserEntity,
-} from '@/src/repository/internal-user-repo/internal-user-entity'
+import { InternalUser } from '@/src/repository/internal-user-repo/internal-user-entity'
 import { InternalUserRepository } from '@/src/repository/internal-user-repo/internal-user-repository'
 import { CommonListResult, CommonResponse, PipelineResponse } from 'common-abstract-fares-system'
 import mongoose from 'mongoose'
 import { NextApiRequest } from 'next'
-import { InitInternalUserRes, InternalUserRes } from '../internal-user-dto'
+import { InternalUserRes } from '../internal-user-res'
 
 /*
     @ericchen:
@@ -26,12 +23,9 @@ export const getListUsersFunc = async (
     page: number
     size: number
   },
-  generatePipelineAggregate: (
-    params: object,
-    entity: TInternalUserEntity
-  ) => mongoose.PipelineStage[],
+  generatePipelineAggregate: (params: object, entity: InternalUser) => mongoose.PipelineStage[],
   responseList: (
-    result: PipelineResponse<CommonListResult<TInternalUserEntity>>,
+    result: PipelineResponse<CommonListResult<InternalUser>>,
     res: InternalUserRes
   ) => Promise<CommonResponse<CommonListResult<InternalUserRes> | string>>
 ): Promise<CommonResponse<CommonListResult<InternalUserRes> | string>> => {
@@ -39,8 +33,8 @@ export const getListUsersFunc = async (
   const result = await repository.find(
     page,
     size,
-    generatePipelineAggregate(req.query, InitInternalUserEntity)
+    generatePipelineAggregate(req.query, new InternalUser())
   )
 
-  return await responseList(result, InitInternalUserRes)
+  return await responseList(result, new InternalUserRes())
 }

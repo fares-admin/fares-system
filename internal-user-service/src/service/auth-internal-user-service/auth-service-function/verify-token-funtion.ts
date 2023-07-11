@@ -1,7 +1,4 @@
-import {
-  InitInternalUserEntity,
-  TInternalUserEntity,
-} from '@/src/repository/internal-user-repo/internal-user-entity'
+import { InternalUser } from '@/src/repository/internal-user-repo/internal-user-entity'
 import { InternalUserRepository } from '@/src/repository/internal-user-repo/internal-user-repository'
 import { CommonResponse } from 'common-abstract-fares-system'
 import { validateServiceToken, validateUserToken } from 'common-lib-fares-system'
@@ -16,7 +13,7 @@ export const verifyTokenFunction = async (
   userToken: string,
   serviceToken: string,
   repository: InternalUserRepository
-): Promise<CommonResponse<TInternalUserEntity | string>> => {
+): Promise<CommonResponse<InternalUser | string>> => {
   try {
     const { serviceName } = validateServiceToken(serviceToken.split(' ')[1])
     if (!serviceName) {
@@ -83,7 +80,7 @@ export const verifyTokenFunction = async (
       status: 200,
       success: true,
       message: 'valid',
-      result: convertValue(findUser.result, InitInternalUserEntity),
+      result: convertValue(findUser.result, new InternalUser()),
     }
   } catch (err) {
     return {

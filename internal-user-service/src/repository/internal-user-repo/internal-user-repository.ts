@@ -1,7 +1,7 @@
 import { CommonRepository } from 'common-abstract-fares-system'
-import { InternalUserSchema, TInternalUserEntity } from './internal-user-entity'
+import { InternalUser, InternalUserSchema } from './internal-user-entity'
 
-export class InternalUserRepository extends CommonRepository<TInternalUserEntity> {
+export class InternalUserRepository extends CommonRepository<InternalUser> {
   constructor() {
     super(InternalUserSchema, 'internal-user')
   }

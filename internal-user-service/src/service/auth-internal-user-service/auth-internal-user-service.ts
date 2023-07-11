@@ -1,11 +1,8 @@
-import { TInternalUserEntity } from '@/src/repository/internal-user-repo/internal-user-entity'
+import { InternalUser } from '@/src/repository/internal-user-repo/internal-user-entity'
 import { InternalUserRepository } from '@/src/repository/internal-user-repo/internal-user-repository'
 import { CommonResponse, CommonService } from 'common-abstract-fares-system'
-import {
-  AuthInternalUserReqError,
-  InternalUserLoginReq,
-  InternalUserLoginRes,
-} from './auth-internal-user-dto'
+import { AuthInternalUserReqError, InternalUserLoginReq } from './auth-internal-user-req'
+import { InternalUserLoginRes } from './auth-internal-user-res'
 import {
   loginFunction,
   verifyLoginCodeFunction,
@@ -33,7 +30,7 @@ export class AuthInternalUserService extends CommonService<InternalUserRepositor
   public async verifyInternalUserToken(
     userToken: string,
     serviceToken: string
-  ): Promise<CommonResponse<TInternalUserEntity | string>> {
+  ): Promise<CommonResponse<InternalUser | string>> {
     return await verifyTokenFunction(userToken, serviceToken, this.repository)
   }
 }

@@ -2,7 +2,7 @@ import { TypeCode } from '@/src/repository/internal-user-repo/internal-user-enti
 import { InternalUserRepository } from '@/src/repository/internal-user-repo/internal-user-repository'
 import { CommonResponse } from 'common-abstract-fares-system'
 import { generateUserToken } from 'common-lib-fares-system'
-import { InternalUserLoginRes } from '../auth-internal-user-dto'
+import { InternalUserLoginRes } from '../auth-internal-user-res'
 
 /*
     @ericchen:

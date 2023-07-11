@@ -13,8 +13,8 @@ import {
   AuthInternalUserReqError,
   AuthUserValidatorSchema,
   InternalUserLoginReq,
-  InternalUserLoginRes,
-} from '../auth-internal-user-dto'
+} from '../auth-internal-user-req'
+import { InternalUserLoginRes } from '../auth-internal-user-res'
 
 /*
     @ericchen:

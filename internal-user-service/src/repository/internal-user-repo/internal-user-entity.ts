@@ -10,37 +10,32 @@ export interface ICode {
   expired: Date
   type: TypeCode
 }
+export class InternalUser {
+  _id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId()
 
-export interface TInternalUserEntity {
-  _id: mongoose.Types.ObjectId
-  name: string
-  username: string
-  password: string
-  email: string
-  phone: string
-  created: Date
-  modified: Date
-  token: string
-  codes: ICode[]
-  twoFactor: boolean
-  verify: boolean
-  active: boolean
-}
+  name: string = ''
 
-export const InitInternalUserEntity: TInternalUserEntity = {
-  _id: new mongoose.Types.ObjectId(),
-  name: '',
-  username: '',
-  password: '',
-  email: '',
-  phone: '',
-  created: new Date(),
-  modified: new Date(),
-  token: '',
-  codes: [],
-  twoFactor: false,
-  verify: false,
-  active: false,
+  username: string = ''
+
+  password: string = ''
+
+  email: string = ''
+
+  phone: string = ''
+
+  created: Date = new Date()
+
+  modified: Date = new Date()
+
+  token: string = ''
+
+  codes: ICode[] = []
+
+  twoFactor: boolean = false
+
+  verify: boolean = false
+
+  active: boolean = false
 }
 
 export const InternalUserSchema = new mongoose.Schema({
