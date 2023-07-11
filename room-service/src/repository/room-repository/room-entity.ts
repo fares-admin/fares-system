@@ -1,27 +1,23 @@
 import mongoose from 'mongoose'
 
-export const InitRoomEntity: IRoomEntity = {
-  _id: new mongoose.Types.ObjectId(),
-  productId: new mongoose.Types.ObjectId(),
-  title: '',
-  size: 0,
-  maxPersons: 0,
-  price: 0,
-  salePrices: 0,
-  image: '',
-  active: true,
-}
+export class Room {
+  _id: mongoose.Types.ObjectId = new mongoose.Types.ObjectId()
 
-export interface IRoomEntity {
-  _id: mongoose.Types.ObjectId
-  productId: mongoose.Types.ObjectId
-  title: string
-  size: number
-  maxPersons: number
-  price: number
-  salePrices: number
-  image: string
-  active: boolean
+  productId: mongoose.Types.ObjectId = new mongoose.Types.ObjectId()
+
+  title: string = ''
+
+  size: number = 0
+
+  maxPersons: number = 0
+
+  price: number = 0
+
+  salePrices: number = 0
+
+  image: string = ''
+
+  active: boolean = true
 }
 
 export const RoomSchema = new mongoose.Schema({

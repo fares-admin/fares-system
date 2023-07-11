@@ -1,8 +1,8 @@
 import { RoomRepository } from '@/src/repository/room-repository/room-repository'
 import { CommonResponse } from 'common-abstract-fares-system'
-import { RoomReq, RoomReqError, RoomValidatorSchema } from '../room-dto'
-import { validate } from 'validation-tool-fares-system'
 import mongoose from 'mongoose'
+import { validate } from 'validation-tool-fares-system'
+import { RoomReq, RoomReqError, RoomValidatorSchema } from '../room-req'
 
 export const updateRoomFunction = async (
   req: RoomReq,

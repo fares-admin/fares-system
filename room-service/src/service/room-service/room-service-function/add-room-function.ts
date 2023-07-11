@@ -1,9 +1,9 @@
+import { Room } from '@/src/repository/room-repository/room-entity'
 import { RoomRepository } from '@/src/repository/room-repository/room-repository'
-import { RoomReq, RoomReqError, RoomValidatorSchema } from '../room-dto'
 import { CommonResponse } from 'common-abstract-fares-system'
-import { validate } from 'validation-tool-fares-system'
 import { convertValue } from 'object-mapper-fares-system'
-import { IRoomEntity, InitRoomEntity } from '@/src/repository/room-repository/room-entity'
+import { validate } from 'validation-tool-fares-system'
+import { RoomReq, RoomReqError, RoomValidatorSchema } from '../room-req'
 
 export const addNewRoomFunction = async (
   req: RoomReq,
@@ -41,7 +41,7 @@ export const addNewRoomFunction = async (
   //     result: { ...res.result, productId: 'Invalid product' },
   //   }
   // }
-  const entity = convertValue<IRoomEntity>(req, InitRoomEntity)
+  const entity = convertValue<Room>(req, new Room())
   const { error } = await repository.insert([{ ...entity }])
   if (error) {
     return {
