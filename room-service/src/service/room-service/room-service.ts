@@ -1,8 +1,9 @@
 import { RoomRepository } from '@/src/repository/room-repository/room-repository'
 import { CommonListResult, CommonResponse, CommonService } from 'common-abstract-fares-system'
 import { NextApiRequest } from 'next'
+import { PrivateRoomRes } from './room-private-res'
+import { PublicRoomRes } from './room-public-res'
 import { RoomReq, RoomReqError } from './room-req'
-import { RoomRes } from './room-res'
 import { addNewRoomFunction } from './room-service-function/add-room-function'
 import { deleteRoomFunction } from './room-service-function/delete-room-function'
 import { getListRoomsFunc } from './room-service-function/get-list-room-function'
@@ -14,14 +15,16 @@ export class RoomService extends CommonService<RoomRepository> {
   }
 
   public async getListRooms(
-    req: NextApiRequest
-  ): Promise<CommonResponse<CommonListResult<RoomRes> | string>> {
+    req: NextApiRequest,
+    isAuth?: boolean
+  ): Promise<CommonResponse<CommonListResult<PublicRoomRes | PrivateRoomRes> | string>> {
     return await getListRoomsFunc(
       req,
       this.repository,
       this.getPageAndSize,
       this.generatePipelineAggregate,
-      this.responseList
+      this.responseList,
+      isAuth
     )
   }
 

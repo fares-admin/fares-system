@@ -6,26 +6,55 @@ import {
 } from '@/src/repository/product-repository/product-entity'
 import { IS_REQUIRED, ObjectValidator } from 'validation-tool-fares-system'
 
-export interface ProductRequest {
+export class ProductRequest {
+  defaultPrice: string = ''
+
+  images: string[] = []
+
+  title: string = ''
+
+  address: string = ''
+
+  longitude: string = ''
+
+  latitude: string = ''
+
+  spec: {
+    ship?: IShipSpec
+  } = {}
+
+  shortDescription: string[] = []
+
+  features: IFeature[] = []
+
+  longDescription: ILongDescription[] = []
+
+  typeProduct: TypeProduct = TypeProduct.SHIP
+}
+
+export type ProductRequestError = {
   defaultPrice: string
-  images: string[]
+  images: string
   title: string
   address: string
   longitude: string
   latitude: string
   spec: {
-    ship?: IShipSpec
+    ship?: {
+      launch: string
+      cabin: string
+      shell: string
+      trip: string
+      admin: string
+    }
   }
-  shortDescription: string[]
-  features: IFeature[]
-  longDescription: ILongDescription[]
-  typeProduct: TypeProduct
+  shortDescription: string
+  features: string
+  longDescription: string
+  typeProduct: string
 }
 
-export type ProductRequestError = Record<keyof ProductRequest, string>
-
 export const ProductRequestValidator: ObjectValidator<ProductRequestError> = {
-  defaultPrice: IS_REQUIRED,
   images: IS_REQUIRED,
   title: IS_REQUIRED,
   address: IS_REQUIRED,
@@ -35,4 +64,12 @@ export const ProductRequestValidator: ObjectValidator<ProductRequestError> = {
   features: IS_REQUIRED,
   longDescription: IS_REQUIRED,
   typeProduct: IS_REQUIRED,
+}
+
+export const ShipSpecValidator: ObjectValidator<IShipSpec> = {
+  launch: IS_REQUIRED,
+  cabin: IS_REQUIRED,
+  shell: IS_REQUIRED,
+  trip: IS_REQUIRED,
+  admin: IS_REQUIRED,
 }

@@ -1,4 +1,4 @@
-export class RoomRes {
+export class PublicRoomRes {
   _id: string = ''
 
   title: string = ''
@@ -14,10 +14,6 @@ export class RoomRes {
   image: string = ''
 
   created: Date = new Date()
-
-  modified: Date = new Date()
-
-  active: boolean = true
 
   product: string = ''
 }
