@@ -1,3 +1,4 @@
+import { ProductEntity } from '@/src/repository/product-repository/product-entity'
 import { ProductRepository } from '@/src/repository/product-repository/product-repository'
 import { CommonListResult, CommonResponse, CommonService } from 'common-abstract-fares-system'
 import { NextApiRequest } from 'next'
