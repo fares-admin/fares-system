@@ -7,6 +7,7 @@ import { ProductRequest, ProductRequestError } from './product-req'
 import {
   addNewProductFunction,
   deleteProductFunction,
+  findInternalProductFunction,
   getListProductFunc,
   updateProductFunction,
 } from './product-service-function'
@@ -45,5 +46,12 @@ export class ProductService extends CommonService<ProductRepository> {
     req: ProductRequest
   ): Promise<CommonResponse<ProductRequestError | string>> {
     return await updateProductFunction(req, this.repository, id)
+  }
+
+  public async getInternalProduct(
+    id: string,
+    serviceToken: string
+  ): Promise<CommonResponse<ProductEntity | string>> {
+    return await findInternalProductFunction(serviceToken, this.repository, id)
   }
 }
