@@ -15,7 +15,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     'GET',
     service.getInternalProduct(
       req.query.id?.toString() || '',
-      req.headers.ServiceToken?.toString() || ''
+      req.query.ServiceToken?.toString() || ''
     )
   )
   res.status(200).json(result)
