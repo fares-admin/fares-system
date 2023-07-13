@@ -3,7 +3,13 @@ import { CommonListResult, CommonResponse, CommonService } from 'common-abstract
 import { NextApiRequest } from 'next'
 import { PrivateProductRes } from './product-private-res'
 import { PublicProductRes } from './product-public-res'
-import { getListProductFunc } from './product-service-function'
+import { ProductRequest, ProductRequestError } from './product-req'
+import {
+  addNewProductFunction,
+  deleteProductFunction,
+  getListProductFunc,
+  updateProductFunction,
+} from './product-service-function'
 
 export class ProductService extends CommonService<ProductRepository> {
   constructor() {
@@ -22,5 +28,22 @@ export class ProductService extends CommonService<ProductRepository> {
       this.responseList,
       isAuth
     )
+  }
+
+  public async addNewProduct(
+    req: ProductRequest
+  ): Promise<CommonResponse<ProductRequestError | string>> {
+    return await addNewProductFunction(req, this.repository)
+  }
+
+  public async deleteProduct(ids: string): Promise<CommonResponse<string>> {
+    return await deleteProductFunction(ids, this.repository)
+  }
+
+  public async updateProduct(
+    id: string,
+    req: ProductRequest
+  ): Promise<CommonResponse<ProductRequestError | string>> {
+    return await updateProductFunction(req, this.repository, id)
   }
 }
