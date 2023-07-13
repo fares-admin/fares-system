@@ -1,7 +1,10 @@
 import { RoomRepository } from '@/src/repository/room-repository/room-repository'
+import axios from 'axios'
 import { CommonResponse } from 'common-abstract-fares-system'
+import { generateServiceToken } from 'common-lib-fares-system'
 import mongoose from 'mongoose'
 import { validate } from 'validation-tool-fares-system'
+import { ProductEntity } from '../product-entity'
 import { RoomReq, RoomReqError, RoomValidatorSchema } from '../room-req'
 
 export const updateRoomFunction = async (
@@ -42,6 +45,32 @@ export const updateRoomFunction = async (
     return {
       ...res,
       message: 'invalid productId',
+    }
+  }
+  const internalToken = generateServiceToken({ serviceName: process.env.SERVICE_NAME || '' })
+  const callInternalProduct = await axios.get(
+    `${process.env.PRODUCT_SERVICE_URL}/api/service/findProduct?id=${req.productId}&ServiceToken=${internalToken}`
+  )
+  if (callInternalProduct.status !== 200)
+    return {
+      status: 500,
+      message: 'server error',
+      result: '',
+      success: false,
+    }
+  const result = callInternalProduct.data as CommonResponse<ProductEntity | string>
+  if (!result.success) {
+    return {
+      ...res,
+      message: result.message,
+      result: { ...res.result, productId: 'invalid productId' },
+    }
+  }
+  const findTitle = await repository.findOne('title', req.title)
+  if (findTitle.result) {
+    return {
+      ...res,
+      result: { ...res.result, title: 'title existed' },
     }
   }
   const findRoom = await repository.findOne('_id', new mongoose.Types.ObjectId(id))

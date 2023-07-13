@@ -3,10 +3,12 @@ import { ReviewRepository } from '@/src/repository/review-repository/review-repo
 import axios from 'axios'
 import { CommonResponse } from 'common-abstract-fares-system'
 import { generateServiceToken } from 'common-lib-fares-system'
+import mongoose from 'mongoose'
 import { convertValue } from 'object-mapper-fares-system'
 import { validate } from 'validation-tool-fares-system'
-import { ProductEntity } from '../product-entity'
+import { ProductEntity, TypeProduct } from '../product-entity'
 import { ReviewReqValidator, ReviewRequest, ReviewRequestError } from '../review-req'
+import { Room } from '../room-entity'
 
 /*
       @ericchen:
@@ -43,17 +45,17 @@ export const addNewReviewFunction = async (
     status: 400,
   }
   const internalToken = generateServiceToken({ serviceName: process.env.SERVICE_NAME || '' })
-  const callInternalUser = await axios.get(
+  const callInternalProduct = await axios.get(
     `${process.env.PRODUCT_SERVICE_URL}/api/service/findProduct?id=${req.productId}&ServiceToken=${internalToken}`
   )
-  if (callInternalUser.status !== 200)
+  if (callInternalProduct.status !== 200)
     return {
       status: 500,
       message: 'server error',
       result: '',
       success: false,
     }
-  const result = callInternalUser.data as CommonResponse<ProductEntity | string>
+  const result = callInternalProduct.data as CommonResponse<ProductEntity>
   if (!result.success) {
     return {
       ...res,
@@ -61,10 +63,29 @@ export const addNewReviewFunction = async (
       result: { ...res.result, productId: 'invalid productId' },
     }
   }
+  const variantList = await Promise.all(
+    req.variantId.filter(async (item) => {
+      if (result.result.typeProduct === TypeProduct.SHIP) {
+        const callInternalRoom = await axios.get(
+          `${process.env.ROOM_SERVICE_URL}/api/service/findProduct?id=${item}&ServiceToken=${internalToken}`
+        )
+        if (callInternalRoom.status === 200) {
+          const result = callInternalProduct.data as CommonResponse<Room>
+          if (result.success) {
+            return true
+          }
+        }
+      }
+      return false
+    })
+  )
   const entity = convertValue<Review>(
     {
       ...req,
-      variantId: req.variantId.filter((item) => item.length > 0),
+      variantId: variantList
+        .filter((item) => item.length > 0)
+        .map((item) => new mongoose.Types.ObjectId(item)),
+      productId: new mongoose.Types.ObjectId(req.productId),
     },
     new Review()
   )

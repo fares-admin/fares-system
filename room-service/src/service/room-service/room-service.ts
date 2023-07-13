@@ -1,3 +1,4 @@
+import { Room } from '@/src/repository/room-repository/room-entity'
 import { RoomRepository } from '@/src/repository/room-repository/room-repository'
 import { CommonListResult, CommonResponse, CommonService } from 'common-abstract-fares-system'
 import { NextApiRequest } from 'next'
@@ -6,6 +7,7 @@ import { PublicRoomRes } from './room-public-res'
 import { RoomReq, RoomReqError } from './room-req'
 import { addNewRoomFunction } from './room-service-function/add-room-function'
 import { deleteRoomFunction } from './room-service-function/delete-room-function'
+import { findRoomInternalFunction } from './room-service-function/find-room-internal-function'
 import { getListRoomsFunc } from './room-service-function/get-list-room-function'
 import { updateRoomFunction } from './room-service-function/update-room-function'
 
@@ -41,5 +43,12 @@ export class RoomService extends CommonService<RoomRepository> {
 
   public async deleteRoom(ids: string): Promise<CommonResponse<string>> {
     return await deleteRoomFunction(ids, this.repository)
+  }
+
+  public async getInternalRoom(
+    id: string,
+    serviceToken: string
+  ): Promise<CommonResponse<Room | string>> {
+    return await findRoomInternalFunction(serviceToken, this.repository, id)
   }
 }
